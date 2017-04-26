@@ -1,0 +1,16 @@
+*{
+	box-sizing: border-box;
+}
+
+table {
+	margin: 0 auto;
+}
+
+td {
+	width: 10%;
+	text-align: center;
+}
+
+tr.header  {
+	background-color: grey;
+}
