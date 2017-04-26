@@ -5,7 +5,7 @@ function getDataFromAPI() {
 	//AUTOMATE THIS!
 	var settings = {
 		type: 'GET',
-		url: 'http://api.echofin.co/wga/alerts?limit=50&undefined',
+		url: 'https://api.echofin.co/wga/alerts?limit=50&undefined',
 		dataType: 'json',
 		success: renderData
 	}
