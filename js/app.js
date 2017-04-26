@@ -1,15 +1,13 @@
 //DATA
-
 //API LAYER
 function getDataFromAPI() {
-	//AUTOMATE THIS!
 	var settings = {
 		type: 'GET',
-		url: 'https://api.echofin.co/wga/alerts?limit=50&undefined',
+		url: baseUrl,
 		dataType: 'json',
 		success: renderData
 	}
-	$.ajax(settings);
+	return $.ajax(settings);
 }
 
 //DOM MANIPULATION
