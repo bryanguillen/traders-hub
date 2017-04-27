@@ -38,6 +38,23 @@ var converters = {
 		return longShortLookup[value];
 	},
 
+	betsizeConverter: function(size) { 
+		size += ''; //convert size to string. 
+		function getIntegerValue(size) { 
+			var numOfDigits = size.length; 
+			var i = 0;
+			var betsizeFormat = '';
+			while (numOfDigits>3) {
+				betsizeFormat += size[i];
+				i++;
+				numOfDigits -= 1;
+			}   
+			return betsizeFormat + 'K';
+		}
+		
+		return getIntegerValue(size)
+	},
+
 	receivedConverter: function(date) {
 		//2017-04-26T 11 19:57:36.067Z
 		//need 04-26-2017 3:57 .. 
@@ -58,6 +75,7 @@ var converters = {
 				}
 			}
 		} 
-		return UTCLookup.month + '-' + UTCLookup.day + '-' + UTCLookup.year + ' ' + UTCLookup.time();
+		//brainstorm other way to  implement this when possible.
+		return UTCLookup.month + '-' + UTCLookup.day + '-' + UTCLookup.year + ' ' + UTCLookup.time(); 
 	}
 }

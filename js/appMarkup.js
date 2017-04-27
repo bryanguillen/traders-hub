@@ -7,7 +7,7 @@ function createTradeMarkup(item) {
 		item.strikePrice,
 		item.referencePrice,
 		converters.alertConverter(item.alertType),
-		item.betSize,
+		converters.betsizeConverter(item.betSize),
 		converters.longShortConverter(item.longOrShort),
 		converters.putCallConverter(item.putOrCall)
 	]
