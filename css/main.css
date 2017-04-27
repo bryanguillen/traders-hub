@@ -11,6 +11,10 @@ td {
 	text-align: center;
 }
 
+td {
+	margin-bottom: 5px;
+}
+
 tr.header  {
-	background-color: grey;
+	background-color: lightblue;
 }

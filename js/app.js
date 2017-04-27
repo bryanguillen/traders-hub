@@ -3,7 +3,7 @@
 function getDataFromAPI() {
 	var settings = {
 		type: 'GET',
-		url: baseUrl,
+		url: baseURL,
 		dataType: 'json',
 		success: renderData
 	}

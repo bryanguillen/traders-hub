@@ -1,15 +1,15 @@
 function createTradeMarkup(item) {
 	var tradeInformation = [
-		symbolConverters.biasConverter(item.bias), 
-		item.received,
+		converters.biasConverter(item.bias), 
+		converters.receivedConverter(item.received),
 		item.symbol,
 		item.expiration,
 		item.strikePrice,
 		item.referencePrice,
-		symbolConverters.alertConverter(item.alertType),
+		converters.alertConverter(item.alertType),
 		item.betSize,
-		symbolConverters.longShortConverter(item.longOrShort),
-		symbolConverters.putCallConverter(item.putOrCall)
+		converters.longShortConverter(item.longOrShort),
+		converters.putCallConverter(item.putOrCall)
 	]
 	
 	var tableData = ''
@@ -22,15 +22,15 @@ function createTradeMarkup(item) {
 
 function getHeaderMarkup() {
 	return '<tr class="header">' +
-				'<td>bias</td>' +
+				'<td>Bull|Bear</td>' +
 				'<td>Recieved</td>' +
-				'<td>symbol</td>' +
-				'<td>expiration</td>' +
-				'<td>strikePrice</td>' +
-				'<td>referencePrice</td>' +
-				'<td>alertType</td>' +
-				'<td>betSize</td>' +
-				'<td>longOrShort</td>' +
-				'<td>putOrCall</td>' +
+				'<td>Symbol</td>' +
+				'<td>Expiration</td>' +
+				'<td>Strike Price</td>' +
+				'<td>Reference Price</td>' +
+				'<td>Alert Type</td>' +
+				'<td>Bet Size</td>' +
+				'<td>Long|Short</td>' +
+				'<td>Put|Call</td>' +
 			'</tr>';
 }

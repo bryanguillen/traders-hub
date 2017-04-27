@@ -1,4 +1,4 @@
-var symbolConverters = {
+var converters = {
 	biasConverter: function(bias) {
 		bias = parseInt(bias);
 		var biasLookup = {
@@ -36,5 +36,28 @@ var symbolConverters = {
 			"-1": "Short"
 		};
 		return longShortLookup[value];
+	},
+
+	receivedConverter: function(date) {
+		//2017-04-26T 11 19:57:36.067Z
+		//need 04-26-2017 3:57 .. 
+		var UTCLookup = {
+			year: date.slice(0,4),
+			month: date.slice(5,7),
+			day: date.slice(8,10),
+			time: function() {
+				//we are four hours behind so subtract 4 from UTC
+				var utcHours = date.slice(11,13);
+				var mins = date.slice(14,16);
+				if (parseInt(utcHours) > 12) {
+					var standardHour = (utcHours - 4) - 12;
+					return standardHour + ':' + mins + 'pm'; 
+				}
+				else {
+					return utcHours - 4 + ':' + mins + 'am';
+				}
+			}
+		} 
+		return UTCLookup.month + '-' + UTCLookup.day + '-' + UTCLookup.year + ' ' + UTCLookup.time();
 	}
 }
