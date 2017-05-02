@@ -18,3 +18,7 @@ td {
 tr.header  {
 	background-color: lightblue;
 }
+
+tr:nth-child(even) {
+	background-color: #ebebe0;
+}
