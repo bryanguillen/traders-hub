@@ -15,6 +15,10 @@ td {
 	margin-bottom: 5px;
 }
 
+tr {
+	height: 50px;
+}
+
 tr.header  {
 	background-color: lightblue;
 }
