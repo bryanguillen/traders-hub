@@ -38,6 +38,7 @@ var converters = {
 		return longShortLookup[value];
 	},
 
+	//111K
 	betsizeConverter: function(size) { 
 		size += ''; //convert size to string. 
 		function getIntegerValue(size) { 
@@ -49,7 +50,7 @@ var converters = {
 				i++;
 				numOfDigits -= 1;
 			}   
-			return betsizeFormat + 'K';
+			return '$' + betsizeFormat + 'K';
 		}
 		
 		return getIntegerValue(size)
@@ -75,7 +76,32 @@ var converters = {
 				}
 			}
 		} 
-		//brainstorm other way to  implement this when possible.
+		//maybe other way to implement this.?
 		return UTCLookup.month + '-' + UTCLookup.day + '-' + UTCLookup.year + ' ' + UTCLookup.time(); 
+	},
+
+	expirationConverter: function(date) {
+		var monthsLookup = {
+			'01': 'Jan',
+			'02': 'Feb',
+			'03': 'Mar',
+			'04': 'Apr',
+			'05': 'May',
+			'06': 'Jun',
+			'07': 'Jul',
+			'08': 'Aug',
+			'09': 'Sep',
+			'10': 'Oct',
+			'11': 'Nov',
+			'12': 'Dec'
+		}
+		var month = date.slice(5, 7);
+		var year = date.slice(0, 4);
+		if ( date.slice(8, 10) === '01') {
+			return monthsLookup[month] + ' ' + year + ' ' + '(M)';
+		}
+
+		return monthsLookup[month] + ' ' + year + ' ' + '(W)'; 
+		
 	}
 }

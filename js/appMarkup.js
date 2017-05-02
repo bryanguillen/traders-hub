@@ -3,7 +3,7 @@ function createTradeMarkup(item) {
 		converters.biasConverter(item.bias), 
 		converters.receivedConverter(item.received),
 		item.symbol,
-		item.expiration,
+		converters.expirationConverter(item.expiration),
 		item.strikePrice,
 		item.referencePrice,
 		converters.alertConverter(item.alertType),
