@@ -41,39 +41,86 @@ var converters = {
 	//111K
 	betsizeConverter: function(size) { 
 		size += ''; //convert size to string. 
-		function getIntegerValue(size) { 
-			var numOfDigits = size.length; 
+		var betsizeFormat = '';
+		var numOfDigits = size.length;
+		if (size.length <= 6) {
 			var i = 0;
-			var betsizeFormat = '';
 			while (numOfDigits>3) {
 				betsizeFormat += size[i];
 				i++;
 				numOfDigits -= 1;
-			}   
+			} 
 			return '$' + betsizeFormat + 'K';
+		} 
+
+		if (size.length <= 9) {
+			var i = 0;
+			while (numOfDigits>6) {
+				betsizeFormat += size[i];
+				i++;
+				numOfDigits -= 1;
+			}
+			return '$' + betsizeFormat + 'M';
 		}
+	}, 
+
+	// betsizeConverter: function(size) { 
+	// 	size += ''; //convert size to string. 
+	// 	function getIntegerValue(size) { 
+	// 		var numOfDigits = size.length; 
+	// 		var i = 0;
+	// 		var betsizeFormat = '';
+	// 		while (numOfDigits>3) {
+	// 			betsizeFormat += size[i];
+	// 			i++;
+	// 			numOfDigits -= 1;
+	// 		}   
+	// 		return '$' + betsizeFormat + 'K';
+	// 	}
 		
-		return getIntegerValue(size)
-	},
+	// 	return getIntegerValue(size)
+	// },
 
 	receivedConverter: function(date) {
-		//2017-04-26T 11 19:57:36.067Z
+		// 2017-05-02T20:00:04.529Z
 		//need 04-26-2017 3:57 .. 
 		var UTCLookup = {
 			year: date.slice(0,4),
 			month: date.slice(5,7),
 			day: date.slice(8,10),
+			format: function(hour, mins, meridian) {
+				return hour + ':' + mins + meridian
+			},
 			time: function() {
 				//we are four hours behind so subtract 4 from UTC
-				var utcHours = date.slice(11,13);
+				var utcHours = parseInt(date.slice(11,13));
 				var mins = date.slice(14,16);
-				if (parseInt(utcHours) > 12) {
-					var standardHour = (utcHours - 4) - 12;
-					return standardHour + ':' + mins + 'pm'; 
+				var standardHour = (utcHours - 4);  
+
+				if (utcHours > 16) {
+					var estHour = (utcHours - 4) - 12;
+					return this.format(estHour, mins, 'pm'); 
 				}
-				else {
-					return utcHours - 4 + ':' + mins + 'am';
+
+				if (utcHours === 16) {
+					return this.format(standardHour, mins, 'pm'); 
 				}
+				
+				if (utcHours <= 4) {
+					//just incase something comes in over night and 
+					if (standardHour === 0) {
+						return this.format('12', mins, 'am');
+					}
+					var overNightLookup = {
+							"-1": 11,
+							"-2": 10,
+							"-3": 9,
+							"-4": 8
+					}
+					return this.format(overNightLookup[parseInt(standardHour)], mins, 'pm'); 
+				}
+				
+				return this.format(standardHour, mins, 'am');
 			}
 		} 
 		//maybe other way to implement this.?
